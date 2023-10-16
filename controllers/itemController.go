@@ -33,6 +33,7 @@ func GetItemsById(c *gin.Context) {
 	}
 }
 
+// POST '/'
 func Create(c *gin.Context) {
 	var itemInput models.ItemRequst
 
@@ -59,6 +60,7 @@ func Create(c *gin.Context) {
 	}
 }
 
+// PATCH '/:Id'
 func Update(c *gin.Context) {
 	var id = c.Param("Id");
 	
@@ -91,6 +93,7 @@ func Update(c *gin.Context) {
 	}
 }
 
+// DELETE '/:Id'
 func Delete(c *gin.Context) {
 	var id = c.Param("Id");
 	var item models.Item
