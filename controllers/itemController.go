@@ -15,7 +15,7 @@ func GetAllItems(c *gin.Context) {
 
 	database.DB.Model(&models.Item{}).Find(&items)
 
-	c.JSON(http.StatusOK, gin.H{ "data": items, "result": true, "status": 200 })
+	c.JSON(http.StatusOK, gin.H{ "data": items, "result": true, "status": 200, "message": "successfully get all items" })
 }
 
 // GET '/:Id'
@@ -24,7 +24,8 @@ func GetItemsById(c *gin.Context) {
 
 	var item models.Item
   if err := database.DB.Model(&models.Item{}).Where("id = ?", id).First(&item).Error; err != nil {
-    c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!", "result": false, "status": 404})
+    c.JSON(http.StatusBadRequest, gin.H{
+			"data": nil, "message": "Record not found!", "result": false, "status": 404})
     return
   }
 

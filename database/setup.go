@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/natapapon-flm/go-gin/models"
 	"gorm.io/driver/mysql"
@@ -11,9 +12,9 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	dsn := "root:root@tcp(localhost:8889)/go_basics?parseTime=true"
-	
-  database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	dsn := os.Getenv("DATABASE_URL")
+
+  database, err := gorm.Open(mysql.Open(dsn))
 	
 	if err != nil {
 		panic(err)
@@ -23,7 +24,7 @@ func ConnectDatabase() {
 
 	err = database.AutoMigrate(&models.Item{})
 	if err != nil {
-		return
+		panic(err)
 	} else {
 		fmt.Println("Successfully migrate database")
 	}
